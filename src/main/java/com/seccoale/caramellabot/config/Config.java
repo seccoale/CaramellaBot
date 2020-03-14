@@ -10,6 +10,7 @@ public class Config {
 
     private BotConfig bot;
     private Map<String, String[]> sentences;
+    private Map<String, Map<String, String>> i18n;
 
     @Getter @Setter
     public final static class BotConfig {

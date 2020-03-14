@@ -3,6 +3,7 @@ package com.seccoale.caramellabot;
 import com.seccoale.caramellabot.config.COMMAND;
 import com.seccoale.caramellabot.config.Config;
 import com.seccoale.caramellabot.config.ConfigProvider;
+import com.seccoale.caramellabot.config.LANGUAGE;
 import com.seccoale.caramellabot.game.GameSessions;
 import com.seccoale.caramellabot.game.exception.GameAlreadyStartedException;
 import com.seccoale.caramellabot.game.exception.GameNotCreatableException;
@@ -30,7 +31,11 @@ public class CaramellaBot extends TelegramLongPollingBot {
                 } else if (command != null) {
                     switch (command) {
                         case NEW_GAME:
-                            gameSessions.newGame(chatId);
+                        case NEW_GAME_ENG:
+                            gameSessions.newGame(LANGUAGE.ENG, chatId);
+                            break;
+                        case NEW_GAME_ITA:
+                            gameSessions.newGame(LANGUAGE.ITA, chatId);
                             break;
                         case JOIN_GAME:
                             gameSessions.joinGame(chatId, playerId);

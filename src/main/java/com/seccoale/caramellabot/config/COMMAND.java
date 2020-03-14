@@ -5,16 +5,16 @@ import lombok.Getter;
 @Getter
 public enum COMMAND {
 
-    NEW_GAME("/newgame", "Starts a new game"),
-    JOIN_GAME("/join", "Joins a starting game"),
-    END_GAME("/endgame", "Ends a game"),
-    START_GAME("/start", "Starts a game");
+    NEW_GAME("/newgame"),
+    NEW_GAME_ITA("/newgame ita"),
+    NEW_GAME_ENG("/newgame eng"),
+    JOIN_GAME("/join"),
+    END_GAME("/endgame"),
+    START_GAME("/start");
 
     private String commandString;
-    private String help;
 
-    COMMAND(String commandString, String help) {
+    COMMAND(String commandString) {
         this.commandString = commandString;
-        this.help = help;
     }
 }

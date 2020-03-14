@@ -1,7 +1,7 @@
 !!com.seccoale.caramellabot.config.Config
 bot:
-  username: CaramellaBOT
-  token: 476594445:AAFJUUMjvYQGEuFsmtkBq90CDTsxqFdsSoE
+  username: "CaramellaBOT"
+  token: 476594445:AAGHP_251C44dZHQjJHXLu3Par_dgetn7ME
 
 sentences:
   ITA:
@@ -18,3 +18,17 @@ sentences:
     - Write what they're doing.
     - Write what he says.
     - Write what she says.
+
+i18n:
+  ITA:
+    session.game.new.info: Poi vai alla chat privata con @CaramellaBOT e segui le istruzioni"
+    help.newgame: Inizia un nuovo gioco
+    help.join: Unisciti ad una partita creata
+    help.endgame: Termina una partita iniziata
+    help.start: Inizia una partita dopo che tutti si sono uniti con /join
+  ENG:
+    session.game.new.info: Then go to @CaramellaBOT And follow instructions
+    help.newgame: Start a new game
+    help.join: Join a game which has been created
+    help.endgame: End a game which has been created
+    help.start: Start a game after all players joined it with /join

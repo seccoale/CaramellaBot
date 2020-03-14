@@ -2,7 +2,7 @@ package com.seccoale.caramellabot.game;
 
 import com.seccoale.caramellabot.CaramellaBot;
 import com.seccoale.caramellabot.config.ConfigProvider;
-import com.seccoale.caramellabot.config.LANGUAGES;
+import com.seccoale.caramellabot.config.LANGUAGE;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Getter
 public class Game {
     private final static Logger LOGGER = LoggerFactory.getLogger(Game.class);
-    private LANGUAGES language;
+    private LANGUAGE language;
     private long chatId;
     private AtomicInteger stage;
     private List<Long> players;
@@ -27,7 +27,7 @@ public class Game {
     private CaramellaBot bot;
     private boolean started = false;
 
-    public Game(CaramellaBot bot, LANGUAGES language, long chatId) {
+    public Game(CaramellaBot bot, LANGUAGE language, long chatId) {
         this.bot = bot;
         this.language = language;
         players = new ArrayList<>();
@@ -37,7 +37,7 @@ public class Game {
     }
 
     public Game(CaramellaBot bot, long chatId) {
-        this(bot, LANGUAGES.ITA, chatId);
+        this(bot, LANGUAGE.ITA, chatId);
     }
 
     public synchronized void join(long player) {

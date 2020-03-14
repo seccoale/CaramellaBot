@@ -1,10 +1,10 @@
 package com.seccoale.caramellabot.config;
 
-public enum LANGUAGES {
+public enum LANGUAGE {
     ITA("ITA"), ENG("ENG");
     private String language;
 
-    LANGUAGES(String language) {
+    LANGUAGE(String language) {
         this.language = language;
     }
 
