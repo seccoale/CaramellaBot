@@ -1,0 +1,20 @@
+!!com.seccoale.caramellabot.config.Config
+bot:
+  username: CaramellaBOT
+  token: 476594445:AAFJUUMjvYQGEuFsmtkBq90CDTsxqFdsSoE
+
+sentences:
+  ITA:
+    - Scrivi il nome di lui.
+    - Scrivi il nome di lei.
+    - Scrivi dove sono.
+    - Scrivi cosa fanno.
+    - Scrivi cosa dice lui.
+    - Scrivi cosa dice lei.
+  ENG:
+    - Write his name.
+    - Write her name.
+    - Write where they are.
+    - Write what they're doing.
+    - Write what he says.
+    - Write what she says.
