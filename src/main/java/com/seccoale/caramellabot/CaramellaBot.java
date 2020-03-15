@@ -4,6 +4,7 @@ import com.seccoale.caramellabot.config.COMMAND;
 import com.seccoale.caramellabot.config.Config;
 import com.seccoale.caramellabot.config.ConfigProvider;
 import com.seccoale.caramellabot.config.LANGUAGE;
+import com.seccoale.caramellabot.game.Game;
 import com.seccoale.caramellabot.game.GameSessions;
 import com.seccoale.caramellabot.game.exception.GameAlreadyStartedException;
 import com.seccoale.caramellabot.game.exception.GameNotCreatableException;
@@ -73,5 +74,9 @@ public class CaramellaBot extends TelegramLongPollingBot {
 
     public Config getConfig() {
         return ConfigProvider.getConfig();
+    }
+
+    public void removeGame(long chatId) throws GameNotFoundException {
+        gameSessions.finishGame(chatId);
     }
 }

@@ -3,16 +3,14 @@ package com.seccoale.caramellabot.game;
 import com.seccoale.caramellabot.CaramellaBot;
 import com.seccoale.caramellabot.config.ConfigProvider;
 import com.seccoale.caramellabot.config.LANGUAGE;
+import com.seccoale.caramellabot.game.exception.GameNotFoundException;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
@@ -26,6 +24,8 @@ public class Game {
     private List<GameResult> gameResults;
     private CaramellaBot bot;
     private boolean started = false;
+    private final Random random = new Random();
+    private List<Integer> resultsAvailablePositions;
 
     public Game(CaramellaBot bot, LANGUAGE language, long chatId) {
         this.bot = bot;
@@ -46,6 +46,7 @@ public class Game {
 
     public synchronized void start() {
         if(!started) {
+            populateAvailablePositionResult();
             started = true;
             missingPlayers = new HashSet<>(players);
             SendMessage msg = new SendMessage();
@@ -61,7 +62,7 @@ public class Game {
 
     public synchronized void receivedResult(long player, String result){
         if(missingPlayers.contains(player)) {
-            gameResults.get(getGamePosition(player)).attachResult(result + "\n");
+            gameResults.get(getGameResultPosition()).attachResult(result + "\n");
             missingPlayers.remove(player);
             if (missingPlayers.isEmpty()) {
                 nextStage();
@@ -69,7 +70,15 @@ public class Game {
         }
     }
 
+    private void populateAvailablePositionResult(){
+        resultsAvailablePositions = new ArrayList<>(players.size());
+        for(int i=0; i<players.size(); i++){
+            resultsAvailablePositions.add(i);
+        }
+    }
+
     private void nextStage() {
+        populateAvailablePositionResult();
         missingPlayers.addAll(players);
         int tmpStage = stage.incrementAndGet();
         if(tmpStage == getSentences().length) {
@@ -107,7 +116,9 @@ public class Game {
         }
     }
 
-    public void endGame(){
+    public void endGame() {
+        try {
+            bot.removeGame(chatId);
         missingPlayers.removeAll(players);
         SendMessage msg = new SendMessage();
         msg.setText("Results in main chat");
@@ -117,6 +128,9 @@ public class Game {
         }
         players = null;
         chatId = Long.MIN_VALUE;
+        } catch (GameNotFoundException e) {
+            LOGGER.error("Failed to finalize the game due to ", e);
+        }
     }
 
     private int getPlayerPosition(long player){
@@ -130,4 +144,10 @@ public class Game {
     private int getGamePosition(long player) {
         return (getPlayerPosition(player) + stage.get()) % players.size();
     }
+
+    private synchronized int getGameResultPosition(){
+        int index = random.nextInt(resultsAvailablePositions.size());
+        return resultsAvailablePositions.remove(index);
+    }
+
 }

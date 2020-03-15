@@ -96,4 +96,19 @@ public class GameSessions {
         }
         chatGameSet.get(player).receivedResult(player, text);
     }
+
+    public void finishGame(long chatId) throws GameNotFoundException {
+        if(!chatGameSet.containsKey(chatId)) {
+            throw new GameNotFoundException("Game "+chatId+" not existing. Create it using: "+ COMMAND.NEW_GAME.getCommandString());
+        }
+        synchronized (chatGameSet.get(chatId)) {
+            Game game = chatGameSet.get(chatId);
+            if(game.getChatId() == chatId) {
+                for (long player : game.getPlayers()) {
+                    chatGameSet.remove(player);
+                }
+                chatGameSet.remove(chatId);
+            }
+        }
+    }
 }
