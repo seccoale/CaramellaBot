@@ -62,7 +62,7 @@ public class Game {
 
     public synchronized void receivedResult(long player, String result){
         if(missingPlayers.contains(player)) {
-            gameResults.get(getGameResultPosition()).attachResult(result + "\n");
+            gameResults.get(getGamePosition(player)).attachResult(result + "\n");
             missingPlayers.remove(player);
             if (missingPlayers.isEmpty()) {
                 nextStage();
